@@ -4,7 +4,7 @@
 [Aula 1 - Determine regras CSS ](#aula-1---determine-regras-css)  
 [Aula 2 - Aplique a metodologia SMACSS  ](#aula-2--aplique-a-metodologia-smacss)  
 [Aula 3 - Aplique a metodologia BEM  ](#aula-3--aplique-a-metodologia-bem)  
-[Aula 4 -  ](#aula-)  
+[Aula 4 - Escreva BEM com SASS  ](#aula-4--escreva-bem-com-sass)  
 
 
 ## **Aula 1 – Determine regras de CSS**
@@ -365,3 +365,123 @@ Essa padronização melhora a clareza e evita conflitos, pois deixa evidente a h
   ```
 
 * A repetição do nome do bloco nos elementos/modificadores ajuda a manter o código mais coeso e fácil de entender.
+
+Claro! Aqui está o **resumo final da Aula 4 – Escreva bem com SASS**, organizado e completo com base nas suas anotações e imagens:
+
+---
+
+## **Aula 4 – Escreva bem com SASS**
+
+**Objetivos:**
+
+* Compreender a integração do SASS com a metodologia BEM;
+* Dominar a criação de blocos, elementos e modificadores;
+* Aplicar boas práticas de organização de código.
+
+---
+
+### **Inicializando o projeto com SASS**
+
+* O primeiro passo é inicializar o projeto com o comando:
+
+  ```bash
+  npm init
+  ```
+
+  * Para pular as perguntas interativas:
+
+    ```bash
+    npm init -y
+    ```
+
+* Evitar erros de nome (como iniciar com letra maiúscula). Exemplo de nome válido: `bom_css`.
+
+* O comando cria o arquivo `package.json`.
+
+---
+
+### **Instalando o SASS**
+
+* Após o `npm init`, o SASS é instalado com:
+
+  ```bash
+  npm i --save sass
+  ```
+
+* Para evitar que a pasta `node_modules` seja versionada, cria-se um arquivo `.gitignore` com:
+
+  ```
+  node_modules/
+  ```
+
+---
+
+### **Comparando CSS puro e SASS com BEM**
+
+* Nas imagens 1 e 2, foram mostradas duas versões do mesmo código:
+
+  * **CSS puro**:
+
+    ```css
+    .form {
+      margin: 40px;
+    }
+
+    .form__control {
+      margin-bottom: 16px;
+      font-family: sans-serif;
+    }
+
+    .form__submit {
+      cursor: pointer;
+    }
+
+    .form__submit--sending {
+      cursor: wait;
+    }
+    ```
+
+  * **SASS (SCSS)**:
+
+    ```scss
+    .form {
+      margin: 40px;
+
+      &__control {
+        margin-bottom: 16px;
+        font-family: sans-serif;
+      }
+
+      &__submit {
+        cursor: pointer;
+
+        &--sending {
+          cursor: wait;
+        }
+      }
+    }
+    ```
+
+* A versão com SASS evita repetição de nomes e torna o código mais enxuto e organizado.
+  A estrutura aninhada com `&` permite criar classes de forma hierárquica seguindo a metodologia BEM.
+
+---
+
+### **Compilando o SASS**
+
+* Para compilar o arquivo `.scss` e gerar o `.css`, o professor executou no terminal:
+
+  ```bash
+  npm run sass ./bem/main.scss ./bem/main.css
+  ```
+
+* Para isso, adicionou no `package.json`:
+
+  ```json
+  "scripts": {
+    "sass": "sass"
+  }
+  ```
+
+* Embora seja possível configurar o `watch` para automatizar a recompilação, o professor preferiu compilar manualmente direto no terminal nesta aula.
+

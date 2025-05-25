@@ -1,0 +1,24 @@
+{
+  "name": "bom_css",
+  "version": "1.0.0",
+  "description": "[Aula 1 - Determine regras CSS ](#aula-1---determine-regras-css)  \r [Aula 2 - Aplique a metodologia SMACSS  ](#aula-2--aplique-a-metodologia-smacss)  \r [Aula 3 - Aplique a metodologia BEM  ](#aula-3--aplique-a-metodologia-bem)  \r [Aula 4 -  ](#aula-)",
+  "homepage": "https://github.com/o-matheus/front_19_ebac#readme",
+  "bugs": {
+    "url": "https://github.com/o-matheus/front_19_ebac/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/o-matheus/front_19_ebac.git"
+  },
+  "license": "ISC",
+  "author": "Matheus",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass", 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "sass": "^1.89.0"
+  }
+}
