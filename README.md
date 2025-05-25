@@ -1,487 +1,105 @@
 # Módulo 19 - Boas práticas CSS
 
-## Menu
-[Aula 1 - Determine regras CSS ](#aula-1---determine-regras-css)  
-[Aula 2 - Aplique a metodologia SMACSS  ](#aula-2--aplique-a-metodologia-smacss)  
-[Aula 3 - Aplique a metodologia BEM  ](#aula-3--aplique-a-metodologia-bem)  
-[Aula 4 - Escreva BEM com SASS  ](#aula-4--escreva-bem-com-sass)  
+## **Exercício – Módulo 19: Boas Práticas no CSS**
 
-
-## **Aula 1 – Determine regras de CSS**
-
-### **Objetivos da aula**
-
-* Compreender os três níveis de especificidade em CSS e como isso influencia na aplicação de estilos;
-* Calcular a especificidade de seletores usando um modelo matemático;
-* Aprender a escrever seletores eficientes e legíveis;
-* Entender o papel do `!important` e seus impactos;
-* Conhecer o comportamento do navegador ao interpretar seletores;
-* Introdução ao uso de metodologias como BEM e SMACSS.
+Este exercício teve como objetivo aplicar a metodologia **BEM (Block, Element, Modifier)** em um projeto fornecido pela EBAC, reorganizando o HTML e os estilos CSS conforme as boas práticas abordadas ao longo do módulo.
 
 ---
 
-### **Especificidade no CSS**
+### **Objetivos do exercício**
 
-#### 1. O que é especificidade?
-
-Especificidade é um sistema de hierarquia usado pelo navegador para decidir qual regra CSS será aplicada quando várias regras conflitantes apontam para o mesmo elemento.
-
-Os níveis mais comuns são:
-
-| Tipo de seletor          | Valor de especificidade |
-| ------------------------ | ----------------------- |
-| Estilo inline            | `1000`                  |
-| ID                       | `0100`                  |
-| Classe, atributo, pseudo | `0010`                  |
-| Tag, pseudoelemento      | `0001`                  |
-
-Exemplo:
-
-```css
-h1 { color: blue; }         /* 0001 */
-.title { color: red; }      /* 0010 */
-#main-title { color: green; } /* 0100 */
-```
-
-O seletor com ID vencerá os outros, por ser mais específico.
+* Atualizar as classes do HTML com base na nomenclatura BEM.
+* Refatorar o CSS (ou SCSS) utilizando blocos, elementos e modificadores.
+* Aplicar as boas práticas de organização de código usando CSS puro ou pré-processador.
+* Entregar o exercício através do GitHub, na branch `boas-praticas`, incluindo os arquivos `.scss` e `.css` se for usado pré-processador.
 
 ---
 
-### **Boa prática: evitar seletor excessivamente longo**
+### **Configuração inicial do projeto**
 
-#### 2. Como o navegador lê os seletores
+* O projeto **não foi criado com o comando `npm init -y`**, pois o nome da pasta estava fora dos padrões exigidos pelo Node. Por isso, foi necessário rodar `npm init` e preencher manualmente cada um dos campos solicitados no terminal.
 
-Embora escrevamos da esquerda para a direita, o navegador interpreta o seletor da **direita para a esquerda**.
-
-Exemplo:
-
-```css
-footer.container ul li a { ... }
-```
-
-A leitura pelo navegador é:
-
-1. Encontra todos os `a`;
-2. Depois, os `li` que são pais desses `a`;
-3. Depois, os `ul` que contêm os `li`;
-4. Depois, `.container` que envolve os `ul`;
-5. Por fim, `footer` que envolve tudo.
-
-Por isso, **quanto mais longo o seletor, maior o custo de renderização** e mais difícil a manutenção do código.
-
----
-
-### **Escrevendo seletores eficientes**
-
-#### 3. Uso de classes específicas
-
-Uma abordagem mais limpa e eficaz é **usar classes específicas diretamente no HTML**, evitando cadeias de seletores longas.
-
-Exemplo ruim:
-
-```css
-footer.container ul li a { ... }
-```
-
-Exemplo recomendado:
-
-```html
-<a class="footer-link" href="#">Contato</a>
-```
-
-```css
-.footer-link {
-  color: #fff;
-  text-decoration: none;
-}
-```
-
-Vantagens:
-
-* Aumenta a especificidade sem exageros (classe = `0010`);
-* Melhora a legibilidade;
-* Facilita a reutilização do estilo;
-* Permite uma arquitetura CSS mais semântica e modular.
-
----
-
-### **O uso do `!important`**
-
-#### 4. Quando e por que evitar
-
-O `!important` força uma regra a se sobrepor a qualquer outra, **quebrando a lógica da cascata** do CSS.
-
-Exemplo:
-
-```css
-.button {
-  background-color: blue !important;
-}
-```
-
-Apesar de útil em casos extremos, seu uso constante **dificulta a manutenção** e a compreensão do código.
-
-Recomenda-se:
-
-* Usar `!important` apenas em exceções;
-* Resolver conflitos com especificidade adequada;
-* Evitar depender dele para sobrepor regras.
-
----
-
-### **Ferramentas auxiliares**
-
-#### 5. Calculando a especificidade
-
-Uma ferramenta útil é o site:
-🔗 [https://specificity.keegan.st](https://specificity.keegan.st)
-
-Nele, você digita o seletor e visualiza:
-
-* A pontuação de especificidade;
-* A ordem de prioridade entre seletores;
-* Como o navegador vai processar o CSS.
-
----
-
-### **Resumo da aula**
-
-* CSS possui uma hierarquia de aplicação baseada na **especificidade** dos seletores;
-* A **eficiência dos seletores** afeta diretamente o desempenho e a clareza do código;
-* O **uso de classes personalizadas** facilita a organização e escalabilidade do CSS;
-* A leitura de seletores pelo navegador acontece da **direita para a esquerda**;
-* O uso de `!important` deve ser controlado e reservado para situações específicas;
-* Ferramentas online como o *specificity.keegan.st* ajudam a entender e planejar melhor os seletores.
-
-Claro! Aqui está o **resumo final da Aula 2 – Aplique a metodologia SMACSS**, consolidado com todas as suas anotações:
-
----
-
-## **Aula 2 – Aplique a metodologia SMACSS**
-
-**Objetivos:**
-
-* Compreender os princípios fundamentais da metodologia SMACSS e como ela pode ser aplicada para organizar o código CSS de forma mais eficiente e padronizada.
-* Estruturar um projeto web usando a abordagem de categorização de estilos em Base, Layout, Module, State e Theme.
-* Criar estilos modulares reutilizáveis e flexíveis usando as diretrizes do SMACSS.
-
----
-
-### **Categorias do SMACSS**
-
-O SMACSS propõe dividir o código CSS em 5 categorias principais:
-
-1. **Base**:
-   Usada para fazer o reset da página.
-   Nessa seção, só são utilizadas tags HTML — sem IDs ou classes.
-
-2. **Layout**:
-   Responsável por organizar a estrutura da página (menu, barra lateral, conteúdo principal, etc).
-   Quando usamos o símbolo `>` em seletores, indicamos que os elementos devem ser descendentes diretos, ou seja, as regras só se aplicam a essa hierarquia exata.
-
-3. **Module**:
-   Representa os componentes reutilizáveis da interface, como cards, blocos de conteúdo, botões etc.
-   Um módulo deve manter sua aparência consistente em qualquer parte do layout.
-   O professor destacou que é aqui onde passamos a maior parte do tempo aplicando o SMACSS.
-
-   * É recomendado manter uma **padronização nos nomes das classes**.
-     Exemplo:
-
-     ```html
-     <div class="mensagem">
-       <h5 class="mensagem-titulo">...</h5>
-       <p class="mensagem-conteudo">...</p>
-     </div>
-     ```
-
-4. **State**:
-   Define variações temporárias dos módulos.
-   Exemplo: `mensagem is-erro`.
-   Esse estado altera aspectos como cor ou borda, sem modificar a estrutura base do módulo.
-
-5. **Theme**:
-   Controla a aparência geral do site com base em temas.
-   O professor mostrou os exemplos do site **G1** (tema vermelho) e **GE** (tema verde).
-   Apesar das diferenças visuais, a estrutura do menu e das páginas é a mesma.
-   Ele criou dois temas (tema A e tema B), aplicados diretamente ao `<body>`, mostrando como alterar a identidade visual sem mudar a estrutura do conteúdo.
-
----
-
-### **Accordion com JavaScript puro**
-
-O professor demonstrou como criar um componente **accordion** com JavaScript puro, controlando o estado visual com base em classes CSS.
-
-1. **Estrutura HTML**:
-
-   ```html
-   <div class="accordion">
-     <div class="accordion-header">Título</div>
-     <div class="accordion-content">Conteúdo</div>
-   </div>
-   ```
-
-2. **CSS**:
-
-   ```css
-   .accordion-content {
-     display: none;
-   }
-
-   .accordion.is-open .accordion-content {
-     display: block;
-   }
-   ```
-
-3. **JavaScript**:
-
-   ```javascript
-   const accordions = document.querySelectorAll('.accordion-header');
-   for (let i = 0; i < accordions.length; i++) {
-     accordions[i].addEventListener('click', function (e) {
-       e.target.parentNode.classList.toggle('is-open');
-     });
-   }
-   ```
-
-   * Utiliza `querySelectorAll` para selecionar todos os cabeçalhos (`.accordion-header`).
-   * Um `for` percorre essa lista e adiciona o evento de clique a cada um.
-   * Foi usada uma função tradicional no `addEventListener`.
-   * O `toggle` alterna a classe `is-open` no elemento pai (`.accordion`), ativando ou escondendo o conteúdo com base no estado.
-  * A linha `e.target.parentNode.classList.toggle('is-open')` foi utilizada na função de clique do accordion para alternar a exibição do conteúdo.
-  A explicação detalhada é:
-
-  * `e` representa o **evento de clique**.
-  * `e.target` é o **elemento clicado** — no caso, o `.accordion-header`.
-  * `e.target.parentNode` acessa o **elemento pai**, que é o `.accordion` (envolve o header e o conteúdo).
-  * `classList.toggle('is-open')` **adiciona ou remove** a classe `is-open` no pai.
-
-    * Se a classe estiver presente, ela é **removida**.
-    * Se não estiver presente, ela é **adicionada**.
-
-* Com isso, o accordion alterna entre **mostrar e ocultar o conteúdo** com base na presença ou ausência da classe `is-open`.
-
-Sim, Matheus — esse já foi o conteúdo completo da aula, então agora segue o **resumo final da Aula 3 – Aplique a metodologia BEM**, consolidado e pronto para ser usado nos seus materiais:
-
----
-
-## **Aula 3 – Aplique a metodologia BEM**
-
-**Objetivos:**
-
-* Conceituar a metodologia BEM (Block, Element, Modifier);
-* Aplicar a metodologia BEM na prática;
-* Assimilar as boas práticas de nomenclatura sugeridas pelo BEM.
-
----
-
-### **O que é BEM?**
-
-BEM é uma metodologia que busca organizar e nomear o CSS de forma clara, reutilizável e escalável, separando os estilos em:
-
-* **Bloco (Block)**: o componente principal. Ex.: `.menu`, `.form`.
-* **Elemento (Element)**: uma parte do bloco que depende dele para existir. Ex.: `.menu__link`, `.form__control`.
-* **Modificador (Modifier)**: uma variação de aparência ou estado. Ex.: `.menu__link--active`, `.form__submit--sending`.
-
----
-
-### **Exemplos práticos**
-
-* No menu da EBAC, temos:
-
-  * Bloco: `.menu`
-  * Elemento: `.menu__link`
-  * Modificador: `.menu__link--active`
-
-* A convenção de nomenclatura:
-
-  * Dois underlines `__` para elementos
-  * Dois traços `--` para modificadores
-
-Essa padronização melhora a clareza e evita conflitos, pois deixa evidente a hierarquia e o papel de cada classe.
-
----
-
-### **Boas práticas e comparações**
-
-* Comparado ao CSS tradicional (exemplo mostrado em aula), o BEM deixa o código:
-
-  * Mais limpo;
-  * Mais descritivo;
-  * Mais fácil de manter;
-  * Melhor preparado para projetos em equipe.
-
-* O site [getbem.com](https://getbem.com) é recomendado para aprofundar os conceitos e exemplos.
-
-* Uma das recomendações do BEM é **usar apenas seletores de classe**, evitando o uso de tags e IDs diretamente nos seletores CSS.
-
----
-
-### **Uso com pré-processadores**
-
-* Embora seja possível aplicar o BEM com CSS puro, ele **se encaixa melhor com pré-processadores como SASS ou LESS**, que permitem estruturar os estilos de forma mais enxuta e hierárquica.
-* Na imagem mostrada, o código em BEM utiliza uma sintaxe típica de SASS (com `&` para elementos e modificadores dentro de blocos).
-
----
-
-### **Exemplo prático (formulário)**
-
-* O professor criou um pequeno formulário como exemplo:
-
-  * Bloco: `.form`
-  * Elementos: `.form__control`, `.form__submit`
-  * Modificador: `.form__submit--sending`
-
-  **HTML:**
-
-  ```html
-  <form class="form">
-    <div class="form__control">
-      <label for="nome">Seu nome:</label>
-      <input id="nome" type="text" />
-    </div>
-    <button class="form__submit form__submit--sending" type="submit">Enviar</button>
-  </form>
-  ```
-
-  **CSS:**
-
-  ```css
-  .form {
-    margin: 40px;
-  }
-
-  .form__control {
-    margin-bottom: 16px;
-    font-family: sans-serif;
-  }
-
-  .form__submit {
-    cursor: pointer;
-  }
-
-  .form__submit--sending {
-    cursor: wait;
-  }
-  ```
-
-* A repetição do nome do bloco nos elementos/modificadores ajuda a manter o código mais coeso e fácil de entender.
-
-Claro! Aqui está o **resumo final da Aula 4 – Escreva bem com SASS**, organizado e completo com base nas suas anotações e imagens:
-
----
-
-## **Aula 4 – Escreva bem com SASS**
-
-**Objetivos:**
-
-* Compreender a integração do SASS com a metodologia BEM;
-* Dominar a criação de blocos, elementos e modificadores;
-* Aplicar boas práticas de organização de código.
-
----
-
-### **Inicializando o projeto com SASS**
-
-* O primeiro passo é inicializar o projeto com o comando:
+* A instalação do SASS foi feita com:
 
   ```bash
-  npm init
+  npm install --save-dev sass
   ```
 
-  * Para pular as perguntas interativas:
+  > 🔎 **Explicação da diferença**:
 
-    ```bash
-    npm init -y
-    ```
+  * `--save-dev`: adiciona o pacote como **dependência de desenvolvimento**, ou seja, só será necessária enquanto o projeto estiver sendo desenvolvido (ex.: pré-processadores, ferramentas de build, testes).
+  * `--save` (ou sem nada): adiciona o pacote como **dependência de produção**, necessária para o funcionamento final do projeto.
+  * Como o SASS é usado **apenas durante o desenvolvimento**, o uso de `--save-dev` está **correto e recomendado**.
 
-* Evitar erros de nome (como iniciar com letra maiúscula). Exemplo de nome válido: `bom_css`.
+* Também foi criado um `.gitignore` com `node_modules/` para evitar o envio dessa pasta para o repositório.
 
-* O comando cria o arquivo `package.json`.
-
----
-
-### **Instalando o SASS**
-
-* Após o `npm init`, o SASS é instalado com:
+* A branch do exercício foi criada com:
 
   ```bash
-  npm i --save sass
-  ```
-
-* Para evitar que a pasta `node_modules` seja versionada, cria-se um arquivo `.gitignore` com:
-
-  ```
-  node_modules/
+  git checkout -b "boas-praticas"
   ```
 
 ---
 
-### **Comparando CSS puro e SASS com BEM**
+### **Refatoração do HTML com BEM**
 
-* Nas imagens 1 e 2, foram mostradas duas versões do mesmo código:
+* O HTML original usava classes como `produto-imagem`, `produto-nome` e `em-destaque`, que **não estavam de acordo com a nomenclatura BEM**.
 
-  * **CSS puro**:
+* As classes foram atualizadas para:
 
-    ```css
-    .form {
-      margin: 40px;
-    }
+  * `.produto__imagem`
+  * `.produto__nome`
+  * `.produto__descricao`
 
-    .form__control {
-      margin-bottom: 16px;
-      font-family: sans-serif;
-    }
+* A classe de modificação `em-destaque` foi substituída pela classe **modificadora BEM**:
 
-    .form__submit {
-      cursor: pointer;
-    }
-
-    .form__submit--sending {
-      cursor: wait;
-    }
-    ```
-
-  * **SASS (SCSS)**:
-
-    ```scss
-    .form {
-      margin: 40px;
-
-      &__control {
-        margin-bottom: 16px;
-        font-family: sans-serif;
-      }
-
-      &__submit {
-        cursor: pointer;
-
-        &--sending {
-          cursor: wait;
-        }
-      }
-    }
-    ```
-
-* A versão com SASS evita repetição de nomes e torna o código mais enxuto e organizado.
-  A estrutura aninhada com `&` permite criar classes de forma hierárquica seguindo a metodologia BEM.
+  * `.produto--em-destaque`
 
 ---
 
-### **Compilando o SASS**
+### **Refatoração do CSS com SASS**
 
-* Para compilar o arquivo `.scss` e gerar o `.css`, o professor executou no terminal:
+* O CSS foi convertido para **SASS (SCSS)**, utilizando aninhamento com `&` para evitar repetição e melhorar a organização do código.
 
-  ```bash
-  npm run sass ./bem/main.scss ./bem/main.css
-  ```
+  ```scss
+  .produto {
+    &__imagem {
+      width: 100%;
+    }
 
-* Para isso, adicionou no `package.json`:
+    &__nome {
+      font-size: 1.2em;
+      margin: 8px 0;
+    }
 
-  ```json
-  "scripts": {
-    "sass": "sass"
+    &__descricao {
+      color: gray;
+    }
+
+    &--em-destaque {
+      border: 2px solid gold;
+      padding: 8px;
+      background-color: #ffff42;
+    }
   }
   ```
 
-* Embora seja possível configurar o `watch` para automatizar a recompilação, o professor preferiu compilar manualmente direto no terminal nesta aula.
+* O container `.produtos` (plural) foi mantido para estruturar os cards com Grid Layout.
 
+---
+
+### **Compilação do SCSS para CSS**
+
+* A compilação foi feita com o seguinte comando no terminal:
+
+  ```bash
+  npm run sass ./exercicio/bem/main.scss ./exercicio/bem/main.css
+  ```
+
+* Como o projeto é simples, **não foi criado um script de `watch` automatizado**. A compilação foi feita manualmente ao final.
+
+---
+
+### **Conclusão**
+
+O exercício demonstrou como adaptar um código já existente para seguir a metodologia BEM, melhorando a clareza, a escalabilidade e a organização do projeto. Também reforçou as vantagens práticas do uso de pré-processadores como o SASS, especialmente em conjunto com boas práticas de nomenclatura e estruturação de estilos.
